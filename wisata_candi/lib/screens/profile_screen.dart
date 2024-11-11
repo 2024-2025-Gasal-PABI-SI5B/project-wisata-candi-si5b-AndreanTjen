@@ -9,10 +9,24 @@ class ProfileScreen extends StatefulWidget{
 
 class _ProfileScreenState extends State<ProfileScreen>{
   // TODO: 1.Deklarasikan variable yang dibutuhkan
-  bool isSignedIn = true;
+  bool isSignedIn = false;
   String fullName = 'Andrean Tjen';
-  String userName = '';
+  String userName = ' Acen';
   int favoriteCandiCount = 0;
+
+  // TODO: 5. Implementasi fungsi SignIn
+  void signIn(){
+    setState(() {
+      isSignedIn = !isSignedIn;
+    });
+  }
+  // TODO: 6. Implementasi fungsi SignOut
+  void signOut(){
+    setState(() {
+      isSignedIn = !isSignedIn;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                             ),
                             shape: BoxShape.circle
                           ),
-                          child: CircleAvatar(
+                          child: const CircleAvatar(
                             radius: 50,
                             backgroundImage:
                               AssetImage('images/placeholder_image.png'),
@@ -135,7 +149,8 @@ class _ProfileScreenState extends State<ProfileScreen>{
                       style: const TextStyle(
                         fontSize: 18,
                       ),
-                    ))
+                    )),
+                    if(isSignedIn) const Icon(Icons.edit),
                   ],
                 ),
                 const SizedBox(
@@ -154,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                       child: const Row(
                         children: [
                           Icon(
-                            Icons.heart_broken,
+                            Icons.favorite,
                             color: Colors.red,
                           ),
                           SizedBox(
@@ -178,6 +193,19 @@ class _ProfileScreenState extends State<ProfileScreen>{
                   ],
                 ),
                 // TODO: 4. Buat bagian file action
+                const SizedBox(
+                  height: 4,
+                ),
+                Divider(
+                  color: Colors.deepPurple[100],
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                isSignedIn
+                ? TextButton(onPressed: signOut,
+                child: const Text('Sign Out'))
+                : TextButton(onPressed: signIn, child: const Text('Sign In'))
               ],
             ),
           )
